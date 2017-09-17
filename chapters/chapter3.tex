@@ -363,15 +363,9 @@ There may be certain qualities we look for in an model:
 \item Scalable (it can be applied to a large dataset)
 
 \end{itemize}
-Though there are generally trade offs among these qualities.\\in order to select a model from other models, we usually use one of the following approaches  .
-
-
-\textbf{A Typical approach } is to take your data and split it randomly into a training set and a test set (e.g. a 70\%/30\% split). Then you train your model on the training set and see how it performs on the test set.
-
-the problem with this Approach is it results in an overly optimistic estimation of generalization if we tune our model's parameters with it . so what we want to do instead is splitting the data is to not split it only into training and testing sets, but to also include a validation set. A typical ratio is 60\% training, 20\% validation, 20\% testing.
+Though there are generally trade offs among these qualities.\\in order to select a model from other models, we usually use one of the following approaches  .\\\textbf{A Typical approach } is to take your data and split it randomly into a training set and a test set (e.g. a 70\%/30\% split). Then you train your model on the training set and see how it performs on the test set.\\the problem with this Approach is it results in an overly optimistic estimation of generalization if we tune our model's parameters with it . so what we want to do instead is splitting the data is to not split it only into training and testing sets, but to also include a validation set. A typical ratio is 60\% training, 20\% validation, 20\% testing.
 
 this way we can measure Validation error instead of just measuring the test error .
-
 we can use these errors   to identify what kind of problem we have if our model isn't performing well:
 
 \begin{itemize}
