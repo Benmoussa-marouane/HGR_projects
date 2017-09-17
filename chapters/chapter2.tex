@@ -155,6 +155,8 @@ To efficiently detect stable keypoint locations in scale space, we have proposed
 1999) using scale space peaks in the difference-of-Gaussian function convolved with the
 image, D(x, y, $\sigma$), which can be computed from the difference of two nearby scales separated
 by a constant factor k:
+
+
 \begin{align}
 D(x, y, \sigma) &= (G(x, y, k\sigma) - G(x, y,\sigma) * I(x, y)\\
                  &= L(x, y, k\sigma) - L(x, y, \sigma) .
@@ -224,12 +226,12 @@ factor k in scale space, shown stacked in the left column. \\We choose to divide
 of scale space (i.e., doubling of $\sigma$) into an integer number, s, of intervals, so $k = 2^{1/\mathbf{s}}$
 Adjacent image scales are subtracted to produce the difference-of-Gaussian images shown
 on the right. Once a complete octave has been processed, we resample the Gaussian image
-that has twice the initial value of $\sigma$ by taking every second pixel in each row and column. \newline
-
-The accuracy of sampling relative to $\sigma$ is no different than for the previous octave, while
+that has twice the initial value of $\sigma$ by taking every second pixel in each row and column. The accuracy of sampling relative to $\sigma$ is no different than for the previous octave, while
 computation is greatly reduced.
 
-\textbf{Summary of the section :}
+\newpage
+
+\textcolor{blue}{\textbf{Summary of the section :} }
 
 In the first step of SIFT, it generates several octaves of the original image. Each octave's image size is half the previous one. Within an octave, images are progressively blurred using the Gaussian Blur operator.
 next we use all these octaves to generate Difference of Gaussian images ( Dog ) Two consecutive images in an octave are picked and one is subtracted from the other. Then the next consecutive pair is taken, and the process repeats. This is done for all octaves. The resulting images are an approximation of scale invariant laplacian of gaussian which is good for detecting keypoints .
@@ -305,7 +307,7 @@ on the order of 1000 key points for a typical
 image, compared to only a quarter as many without the initial
 expansion.
 
-\textbf{Summary of this section :}
+\textcolor{blue}{\textbf{Summary of this section :} }
 
 Here, we detected the maxima and minima in the DoG images generated in the previous step. This is done by comparing neighbouring pixels in the current scale, the scale "above" and the scale "below".
 
@@ -346,7 +348,7 @@ stability of matching. Finally, a parabola is fit to the 3 histogram values arou
 to interpolate the peak position for better accuracy.
 
 
-\textbf{summary of the section :}
+\textcolor{blue}{\textbf{summary of the section :}}
 
 To assign an orientation we use a histogram and a small region around it. Using the histogram, the most prominent gradient orientation(s) are identified. If there is only one peak, it is assigned to the keypoint. If there are multiple peaks above the 80\% mark, they are all converted into a new keypoint (with their respective orientations).
 
@@ -403,7 +405,7 @@ the magnitudes for large gradients is no longer as important, and that the distr
 orientations has greater emphasis. The value of 0.2 was determined experimentally using
 differing illuminations for the same objects\\
 
-\textbf{Summary of the section }
+\textcolor{blue}{\textbf{summary of the section :}}
 
 Sift take  a 16x16 window of "in-between" pixels around the keypoint. split that window into sixteen 4x4 windows. From each 4x4 window it generate a histogram of 8 bins. Each bin corresponding to 0-44 degrees, 45-89 degrees. Gradient orientations from the 4x4 are put into these bins. This is done for all 4x4 blocks. Finally, it normalize the 128 values .
 
@@ -577,9 +579,10 @@ However, this feature vector is general enough to work with hand silhouettes in 
 to full bodies. So, it is possible to modify the shape feature vector to work with static
 hand gestures by reducing the dimensionality. This can be accomplished by removing
 the time dependence and temporal similarity terms. The result is a generalized 10
-dimensional feature vector applicable to static shape recognition.\\
+dimensional feature vector applicable to static shape recognition.
 
-\textbf{Create the Feature Vector :}\\
+\textbf{Create the Feature Vector :}
+
 \begin{enumerate}
     \item Compute the 10-dimensional feature vector adapted from Guo \cite{21} : 
     

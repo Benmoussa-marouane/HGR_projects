@@ -3,8 +3,9 @@
 
 \section{introduction}
 
-" We use AI so much that we have stopped thinking of it as AI, ”  says Nello Cristianini,  professor of artificial  intelligence at the University of Bristol.   
-nowadays we make a lot of decision based on our past experiences  or our expectations of the future either way we sure tale  a lot of bad decision and make a lot of mistakes , Machines ( computers ) Can be a powerful tool for this kind of tasks with higher prediction ( about future )  and better accuracy , and that is Machine learning which actually a process  that teaches computers to tackle vast amounts of data, pull out patterns, These patterns can represents a model able to  make decisions , But these models are still yet in need of human supervision to evaluate it and help it overcome the complexities Sometimes Hidden in Data .
+" We use AI so much that we have stopped thinking of it as AI, ”  says Nello Cristianini,  professor of artificial  intelligence at the University of Bristol.
+
+Nowadays we make a lot of decision based on our past experiences  or our expectations of the future either way we sure tale  a lot of bad decision and make a lot of mistakes , Machines ( computers ) Can be a powerful tool for this kind of tasks with higher prediction ( about future )  and better accuracy , and that is Machine learning which actually a process  that teaches computers to tackle vast amounts of data, pull out patterns, These patterns can represents a model able to  make decisions , But these models are still yet in need of human supervision to evaluate it and help it overcome the complexities Sometimes Hidden in Data .
 
 In this Chapter we will First define Supervised learning and presents One of The powerful Application of such type of learning ( supervised ) SVM Algorithm ( support vector machine )  and Nearest neighbor algorithm , And then Define the second type unsupervised learning   with a review K-means algorithm , these algorithm  proved  to be accurate and robust  for our HGR system as it's going to be shown in  Chapter  [\ref{hgr}]
 
@@ -19,18 +20,17 @@ The goal is to approximate the mapping function so well that when we have new in
 
 It is called supervised learning because the process of an algorithm learning from the training dataset can be thought of as a teacher supervising the learning process.\\ We know the correct answers, the algorithm iteratively makes predictions on the training data and is corrected by the teacher. Learning stops when the algorithm achieves an acceptable level of performance.
 Supervised learning problems can be further grouped into regression and classification problems.
-\textbf{Classification:} A classification problem is when the output variable is a category, such as “red” or “blue” or “disease” and “no disease”.\\ \textbf{Regression:}  A regression problem is when the output variable is a real value, such as “dollars” or “weight”.
-Some common types of problems built on top of classification and regression include recommendation and time series prediction respectively.
 
-Some popular examples of supervised machine learning algorithms are:\\
+\textbf{Classification:} A classification problem is when the output variable is a category, such as “red” or “blue” or “disease” and “no disease”.\\ \textbf{Regression:}  A regression problem is when the output variable is a real value, such as “dollars” or “weight”.
+Some common types of problems built on top of classification and regression include recommendation and time series prediction respectively.\\Some popular examples of supervised machine learning algorithms are:\\
 Linear regression for regression problems.\\
-Support vector machines for classification and regression problems.\\
+Support vector machines for classification and regression problems.
 
 
 
 
 \section{Support Vector Machines (SVM) }\label{sec:svm}
-as Hill, T., Lewicki, P. Define it in \cite{svm} Support Vector Machines are based on the concept of decision planes that define decision boundaries. A decision plane is one that separates between a set of objects having different class memberships. A schematic example is shown in the illustration below. In this example, the objects belong either to class GREEN or RED. The separating line defines a boundary on the right side of which all objects are GREEN and to the left of which all objects are RED. Any new object (white circle) falling to the right is labeled, i.e., classified, as GREEN (or classified as RED should it fall to the left of the separating line).
+As Hill, T., Lewicki, P. Define it in \cite{svm} Support Vector Machines are based on the concept of decision planes that define decision boundaries. A decision plane is one that separates between a set of objects having different class memberships. A schematic example is shown in the illustration below. In this example, the objects belong either to class GREEN or RED. The separating line defines a boundary on the right side of which all objects are GREEN and to the left of which all objects are RED. Any new object (white circle) falling to the right is labeled, i.e., classified, as GREEN (or classified as RED should it fall to the left of the separating line).
 
 
 \begin{figure}[H]
@@ -190,6 +190,7 @@ $X10 = (4.2, 3.2, 2), X11 = (4.4, 2.8, 2), X12 = (4.4, 3.2, 2)$\\
 $X13 = (3.2, 0.4, 3), X14 = (3.2, 0.7, 3), X15 = (3.8, 0.5, 3)$\\
 $X16 = (3.5, 1.0, 3), X17 = (4.0, 1.0, 3), X18 = (4.0, 0.7, 3)$
 
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{img/nn-example.PNG}
@@ -332,7 +333,7 @@ The main problem of k-means is its dependency on the initially chosen centroids.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.6\linewidth]{img/kmeans_bad}
+\includegraphics[width=0.4\linewidth]{img/kmeans_bad}
 \caption{k-Means: Badly chosen initial center points}
 \label{fig:kmeans_bad}
 \end{figure}
@@ -362,9 +363,7 @@ There may be certain qualities we look for in an model:
 \item Scalable (it can be applied to a large dataset)
 
 \end{itemize}
-Though there are generally trade offs among these qualities.
-
-in order to select a model from other models, we need some way of  .
+Though there are generally trade offs among these qualities.\\in order to select a model from other models, we usually use one of the following approaches  .
 
 
 \textbf{A Typical approach } is to take your data and split it randomly into a training set and a test set (e.g. a 70\%/30\% split). Then you train your model on the training set and see how it performs on the test set.
