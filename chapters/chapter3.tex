@@ -16,12 +16,8 @@ Supervised learning is where we have input variables (x) and an output variable 
 
 $Y = f(X)$
 
-The goal is to approximate the mapping function so well that when we have new input data (x) that we can predict the output variables (Y) for that data.
-
-It is called supervised learning because the process of an algorithm learning from the training dataset can be thought of as a teacher supervising the learning process.\\ We know the correct answers, the algorithm iteratively makes predictions on the training data and is corrected by the teacher. Learning stops when the algorithm achieves an acceptable level of performance.
-Supervised learning problems can be further grouped into regression and classification problems.
-
-\textbf{Classification:} A classification problem is when the output variable is a category, such as “red” or “blue” or “disease” and “no disease”.\\ \textbf{Regression:}  A regression problem is when the output variable is a real value, such as “dollars” or “weight”.
+The goal is to approximate the mapping function so well that when we have new input data (x) that we can predict the output variables (Y) for that data.\\It is called supervised learning because the process of an algorithm learning from the training dataset can be thought of as a teacher supervising the learning process.\\ We know the correct answers, the algorithm iteratively makes predictions on the training data and is corrected by the teacher. Learning stops when the algorithm achieves an acceptable level of performance.
+Supervised learning problems can be further grouped into regression and classification problems.\\\textbf{Classification:} A classification problem is when the output variable is a category, such as “red” or “blue” or “disease” and “no disease”.\\ \textbf{Regression:}  A regression problem is when the output variable is a real value, such as “dollars” or “weight”.
 Some common types of problems built on top of classification and regression include recommendation and time series prediction respectively.\\Some popular examples of supervised machine learning algorithms are:\\
 Linear regression for regression problems.\\
 Support vector machines for classification and regression problems.
@@ -129,10 +125,7 @@ Some popular kernel functions include
 
 Kernel selection is heavily dependent on the data specifics. For instance, the linear kernel—the simplest
 of all—is useful in large sparse data vectors. However, it ranks behind the polynomial kernel, which avoids
-zeroing the Hessian. \\The polynomial kernel is widely used in image processing, The Gaussian and Laplace RBFs are general-purpose kernels
-that are mostly applied in the absence of prior knowledge. \\A kernel matrix that ends up being diagonal indicates that the feature space is redundant and that another kernel should be tried after feature reduction.\\
-
-\textbf{
+zeroing the Hessian. \\The polynomial kernel is widely used in image processing, The Gaussian and Laplace RBFs are general-purpose kernels that are mostly applied in the absence of prior knowledge. \\A kernel matrix that ends up being diagonal indicates that the feature space is redundant and that another kernel should be tried after feature reduction.\\\textbf{
 Note} that when kernels are used to transform the feature vectors from input space to kernel space for linearly non-separable datasets, the kernel matrix computation requires massive memory and computational
 resources, for big data . 
 
@@ -311,12 +304,10 @@ The update process reoccurs until all observations remain at the assigned center
 
 
 This means that the k-means algorithm tries to optimize the objective function \ref{eqn:kmeans_objective_function}. As there is only a finite number of possible assignments for the amount of centroids and observations available and each iteration has to result in better solution, the algorithm always ends in a local minimum.
-
 \begin{equation}
 J = \sum_{n=1}^{N} \sum_{k=1}^{K} r_{nk} ||x_n - \mu_k||^2
 \label{eqn:kmeans_objective_function}
 \end{equation}
-
 \[
 \text{with } \\
 r_{nk} = \begin{cases}
@@ -333,7 +324,7 @@ The main problem of k-means is its dependency on the initially chosen centroids.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.4\linewidth]{img/kmeans_bad}
+\includegraphics[width=0.5\linewidth]{img/kmeans_bad}
 \caption{k-Means: Badly chosen initial center points}
 \label{fig:kmeans_bad}
 \end{figure}
