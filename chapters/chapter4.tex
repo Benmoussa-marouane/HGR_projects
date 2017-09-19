@@ -1,9 +1,6 @@
 
 \chapter{Hand gesture Recognition} \label{hgr}
 
-
-
-
 \section{Hand tracking  And Detection}
 
 \subsection{Hand segmentation based on depth information :} \label{depth}
@@ -12,30 +9,23 @@ The First step we need to accomplish in order to start to work with the depth da
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{img/mindistance.png}
+\includegraphics[width=0.7\textwidth]{img/mindistance.png}
 \caption{Relative depth thresholding }
 \label{fig:cam8}
 \end{figure}
 
-We are going to base our choice on the object’s proximity to the Kinect. We can choose if a pixel is near based on its depth  The lesser the depth the more likely it’s the hand region .\\
+We are going to base our choice on the object’s proximity to the Kinect. We can choose if a pixel is near based on its depth  The lesser the depth the more likely it’s the hand region .\\\textbf{ Absolute depth}: A pixel is near if its depth is lesser than a constant value, that means that the pixel is between \textbf{minDistance }and a predefined value which is greater than \textbf{minDistance }and lesser than \textbf{maxDistance}.\\\textbf{Relative depth }:First of all,  we calculate the minimum depth, and  base on that depth we select a maximum depth (by adding a constant value to the minimum depth). So, if the depth is between these two values, the pixel is near. This method allow us to have greater mobility, because it does not force us to stay in the same position the whole time. 
 
-\textbf{ Absolute depth}: A pixel is near if its depth is lesser than a constant value, that means that the pixel is between \textbf{minDistance }and a predefined value which is greater than \textbf{minDistance }and lesser than \textbf{maxDistance}.\\
-
-\textbf{Relative depth }:First of all,  we calculate the minimum depth, and  base on that depth we select a maximum depth (by adding a constant value to the minimum depth). So, if the depth is between these two values, the pixel is near. This method allow us to have greater mobility, because it does not force us to stay in the same position the whole time. 
-\\
-
-
-\textbf{In the figure \ref{fig:cam8}} the minimum depth is \textbf{minDistance} and we add a tolerance of\textbf{  t= 2cm }to it, so every point between \textbf{minDistance and minDistance + t }  will be accepted as near.\\
-
-After selecting a method, we must select the resolution of the depth image. It is possible to select it from three different  options 80x60, 320x240 or 640x480. The best option is obviously the 640x480 resolution, but in order to improve the efﬁciency of the code, we can choose the 271 x 211 resolution, because it gives us enough deﬁnition to distinguish the contour  of the hands. \\This choice greatly reduce the number of operations, and consequently, it will improve the efﬁciency of the code.
+\textbf{In the figure \ref{fig:cam8}} the minimum depth is \textbf{minDistance} and we add a tolerance of\textbf{  t= 2cm }to it, so every point between \textbf{minDistance and minDistance + t }  will be accepted as near.\\After selecting a method, we must select the resolution of the depth image. It is possible to select it from three different  options 80x60, 320x240 or 640x480. The best option is obviously the 640x480 resolution, but in order to improve the efﬁciency of the code, we can choose the 271 x 211 resolution, because it gives us enough deﬁnition to distinguish the contour  of the hands. \\This choice greatly reduce the number of operations, and consequently, it will improve the efﬁciency of the code.
 
 \subsection{Hand Coordinates in depth space and color space }
 A normal color camera can be used for sign language recognition but the problem comes when we want to use it for real time applications, in this case we have to track the hand position first and then we can go for recognition but implementing the hand tracking will involve complex algorithms which will make the overall system  computationally heavy, but with the kinect depth camera this task becomes easy as it has a skeleton tracking capability by using color and depth images so we can track the approximate hand position using the skeleton data, there are 20 joints that can be tracked these joints numbers are shown in \ref{table:t1}\\
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-
-\begin{tabu} to 0.6\textwidth { | X[l] | X[r] | }
+\caption{JointType Enumeration}
+ \label{table:t1} 
+\begin{tabu} to 0.5\textwidth { | X[l] | X[r] | }
 
  \hline
  SpineMid = 1  & Neck = 2    \\
@@ -68,8 +58,7 @@ FootRight = 19   & SpineShoulder = 20     \\
 \hline
 
  \end{tabu}
-\caption{JointType Enumeration}
- \label{table:t1} 
+
 
  \end{table}
 
@@ -79,10 +68,13 @@ in the following figure \ref{fig:cam9} we will show the hand position both in co
 \centering
 \includegraphics[width= 1.0\textwidth]{img/colorvsdepth.PNG}
 
-\caption {Hand position's in both color image and depth imge .
+\caption {Hand position's in both color image and depth image .
 \label{fig:cam9}}
 
 \end{figure}
+
+
+
 
 \subsection{Hand isolation using object connectivity }
 
@@ -96,39 +88,31 @@ After depth thresholding we notice that there are regions that do not belong to 
 \label{fig:cam10}
 \end{figure}
 
-the approach used in this project  is to realize that most of the times, hands are not connected to any other object after the thresholding . We already know that the center region belongs to the hand from skeleton tracking , so we can simply apply`` floodfill ()`` offered by OpenCV to find all the connected image regions.\newline
+the approach used in this project  is to realize that most of the times, hands are not connected to any other object after the thresholding . We already know that the center region belongs to the hand from skeleton tracking , so we can simply apply`` floodfill ()`` offered by OpenCV to find all the connected image regions.
 
 \textbf{ Definition and explanation of the algorithm used in floodfill () }
 
-\begin{algorithm}
+\begin{algorithm}[H]
 
 \caption{Algorithm of Flood Fill }
-
-\textbf{function}  Flood-fill(node,target\_color,replacement\_color) 
-\newline
+\textbf{function}  Flood-fill(node,target\_color,replacement\_color)\\ 
 \If{target\_color  ==  replacement\_color }
     {
      return
     }
-\newline
 \If{color of node \neq target\_color }
     {
      return
     }
 Set the color of node to replacement$\_$color 
 
-
 \textbf{Flood-fill}(one step to the west of node , target\_color , replacement\_color)\\
 \textbf{Flood-fill}(one step to the east of node , target\_color , replacement\_color)\\
 \textbf{Flood-fill}(one step to the north of node , target\_color , replacement\_color)\\
-\textbf{Flood-fill}(one step to the south of node , target\_color , replacement\_color)
-\newline
-
+\textbf{Flood-fill}(one step to the south of node , target\_color , replacement\_color)\\
 \textbf{return.} 
 \end{algorithm}
-\newline
-
-with this simple algorithm we can seperate objects from each other and therefor the following  Results : \\
+with this simple algorithm we can separate objects from each other and therefor the following  Results : 
  
  \begin{figure}[H]
 \centering
@@ -136,7 +120,6 @@ with this simple algorithm we can seperate objects from each other and therefor 
 \caption{result after applying connectivity check for one hand  }
 \label{fig:cam11}
 \end{figure}
-
 
 the same process done with the other hand , Making a \textbf{OR } operation to the two images we end up having two hands isolated like shown in fig \ref{fig:twohd}
 
@@ -146,10 +129,8 @@ the same process done with the other hand , Making a \textbf{OR } operation to t
 \caption{result after applying connectivity for both hands  }
 \label{fig:twohd}
 \end{figure}
-
 now after finishing  the prepocessing phase , Since we are taking a resolution of 271 $\times$ 211 Pixels , to make sure the hands are being tracked we make a bounding box that is basically related to the left hand Position , this was made under the assumption that sign language  usually performed with two hands close to each other , \\
-bounding box steps : \\
-
+bounding box steps : 
 \begin{itemize}
 \item  Use LEFT hand location provided by SDK Skeleton  tracker (Px, Py)
  \item Crop to box around hand using depth at (Px, Py)
@@ -220,15 +201,14 @@ SIFT is  slow which  gave lag during feature extraction. on the other hand SURF 
 
 \subsection{  Bag Of visual Words Model}
 
- \textbf{Bag-of-words (BoW) } model is one of the most popular approaches in this computer vision, The idea is very similar to a Dictionary of keypoints or local interest points of an Image or a Datasets of Images.We represent an object as a bag of visual words Fig\ref{fig:coodbook}.
- 
-\begin{wrapfigure}{l}{0.25\textwidth}
+\begin{wrapfigure}{l}{0.28\textwidth}
 \includegraphics[width=0.25\textwidth]{img/codebook.jpg}
 \caption{Example of Visual words in a codebook}
 \label{fig:coodbook}
 \end{wrapfigure}
-These visual words are basically important points in the images. These points are \textbf{features}, and they are discriminative. What this means is that a big patch of monotonic region is not considered to be a feature because it doesn’t give us much information. This is in contrast with a sharp corner or a unique color combination, where we get a lot of information about the image. We can use the BoW model for image classification by constructing a large vocabulary of many visual words and represent each image as a histogram of the frequency words that are in the image. To actually use BoW for image classification, we need to extract these features, generate a codebook, and then generate a histogram. in order to get these features we are going to Use Local Features Descriptors like ( SIFT , SURF ,ORB )\\
-After this step, each image is a collection of vectors of the same dimension, where the order of different vectors is\textbf{ not important} , but the sets vary in cardinality and lack meaningful ordering. This creates difficulties for learning methods (e.g., classifiers) that require feature vectors of fixed dimension as input.\\ Use of the \textbf{vector quantization (VQ)} technique clusters the keypoint descriptors in their feature space into a large number of clusters using \textbf{the K-means } clustering algorithm and encodes each keypoint by the index of the cluster to which it belongs.\\ Each cluster as a visual word that represents a specific local pattern shared by the keypoints in that cluster is saved. Thus, the clustering process generates a visual word vocabulary describing different local patterns in images. The number of clusters determines the size of the Codebook , Hence, each patch in an image is mapped to a certain codeword through the clustering process.
+
+ \textbf{Bag-of-words (BoW) } model is one of the most popular approaches in this computer vision, The idea is very similar to a Dictionary of keypoints or local interest points of an Image or a Datasets of Images.We represent an object as a bag of visual words Fig [\ref{fig:coodbook}].
+ These visual words are basically important points in the images. These points are \textbf{features}, and they are discriminative. What this means is that a big patch of monotonic region is not considered to be a feature because it doesn’t give us much information. This is in contrast with a sharp corner or a unique color combination, where we get a lot of information about the image. We can use the BoW model for image classification by constructing a large vocabulary of many visual words and represent each image as a histogram of the frequency words that are in the image. To actually use BoW for image classification, we need to extract these features, generate a codebook, and then generate a histogram. in order to get these features we are going to Use Local Features Descriptors like (SIFT, SURF,ORB).\\ After this step, each image is a collection of vectors of the same dimension, where the order of different vectors is\textbf{ not important} , but the sets vary in cardinality and lack meaningful ordering. This creates difficulties for learning methods (e.g., classifiers) that require feature vectors of fixed dimension as input.\\ Use of the \textbf{vector quantization (VQ)} technique clusters the keypoint descriptors in their feature space into a large number of clusters using \textbf{the K-means } clustering algorithm and encodes each keypoint by the index of the cluster to which it belongs.\\ Each cluster as a visual word that represents a specific local pattern shared by the keypoints in that cluster is saved. Thus, the clustering process generates a visual word vocabulary describing different local patterns in images. The number of clusters determines the size of the Codebook , Hence, each patch in an image is mapped to a certain codeword through the clustering process.
 
 \subsection{keypoint descriptor Clustering }
 A texture image with a Bag of Words
@@ -236,15 +216,14 @@ model is represented by the image feature,i.e.,a histogram of
 the number of texels from a texture image, to generate ”visual
 words”, which generated word Code, statistics of each image
 frequency of visual words, to complete the image of the word
-description of the bag. Fig.\ref{fig:bag} is bag of visual words image
-classiﬁcation approach.\\
+description of the bag. Fig.\ref{fig:bag} is bag of visual words image classification approach.
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{img/BAG.jpg}
 \caption{ bag of visual words image classification approach   }
 \label{fig:bag}
 \end{figure}
-(1) \textbf{Feature extraction and description.} It is to extract a representative local features from an image as a description   \\(2)\textbf{ Dictionary}
+(1)\textbf{Feature extraction and description.} It is to extract a representative local features from an image as a description (surf for example)  \\(2)\textbf{ Dictionary}
 generation. How to generate the visual dictionary in the
 entire feature space. After K-means clustering SURF 
 feature will be clustered into K categories,\\(3)\textbf{ Characteristics of quantization.} During
@@ -288,7 +267,7 @@ using the trained SVM classiﬁer to obtain a classiﬁcation
 result.
 the following Figure \ref{fig:algo1}  summarize the whole  process :
 
-\begin{figure}[!h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=17cm, height=19.5cm ]{img/myalgo.pdf}
 \caption{Flowchart for the structure of the algorithm , in block (A) the Extracted Keypoints  are Clustered to i Vocabulary and generate a codewords dictionary  ,then compute a histogram using visual words ( vocabulary ) for all the training samples these histograms are then fed to an SVM for classification, in Block (B) test images are converted to histogram representation by couting how many keypoints appeared in cluster i ,  and then classify the results using the trained SVM }
@@ -300,7 +279,7 @@ the following Figure \ref{fig:algo1}  summarize the whole  process :
 for Surf Descriptor we have 200 image for each Gesture  which gave approximately 400444 Features to clusters 
 
 \subsection{EXPERIMENTAL RESULTS }
-in this section we are interested in maximizing the performances of SVM and KNN , using K-cross Validation to make model selection , using K = 10 for cross Validation which has ensure us a great    ,  . \\
+in this section we are interested in maximizing the performances of SVM and KNN , using K-cross Validation to make model selection , with  K = 10 for cross Validation which has ensure us a   ,  . \\
 we have chose Confusion to be our main Evaluation Metric since The method can be used for binary classification or Multi class classifiction like Our Case ( 16 class ) 
 
 \subsubsection{ } 

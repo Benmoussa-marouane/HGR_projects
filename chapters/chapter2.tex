@@ -182,25 +182,17 @@ is required for true scale invariance. In detailed experimental comparisons, Mik
 of other possible image functions, such as the gradient, Hessian, or Harris corner function.\\
 The relationship between D and $\sigma^2\nabla^2G $
 G can be understood from the heat diffusion
-equation (parameterized in terms of $\sigma$ rather than the more usual t = $\sigma^2$):\\
-
+equation (parameterized in terms of $\sigma$ rather than the more usual t = $\sigma^2$):
 \begin{align}
     \frac {\partial G} {\partial \sigma} = \sigma \nabla^2 G 
 \end{align}
 
-
-
-
-From this, we see that$\nabla^2$ G can be computed from the finite difference approximation to  $\frac{\partial G}{\partial \sigma }$ , using the difference of nearby scales at k$\sigma$ and $\sigma$ :\\
-
-
+From this, we see that$\nabla^2$ G can be computed from the finite difference approximation to  $\frac{\partial G}{\partial \sigma }$ , using the difference of nearby scales at k$\sigma$ and $\sigma$ :
 \begin{align}
       \sigma \nabla^2 G =   \frac {\partial G} {\partial \sigma} \approx   \frac {G(x,y,k \sigma) -  G(x,y,\sigma)}{ k \sigma - \sigma}  
 \end{align}
 
-
 and therefore,
-
 
 \begin{align}
       G(x,y,k \sigma) -  G(x,y,\sigma)  \approx (k - 1)  \sigma^2\nabla^2G 
@@ -208,7 +200,7 @@ and therefore,
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{img/sift2.PNG}
+\includegraphics[width=0.7\textwidth]{img/sift2.PNG}
 \caption{ Detection of maxima and minima of the difference-of-Gaussian .}
 \label{fig:sift2}
 \end{figure}
@@ -228,8 +220,6 @@ Adjacent image scales are subtracted to produce the difference-of-Gaussian image
 on the right. Once a complete octave has been processed, we resample the Gaussian image
 that has twice the initial value of $\sigma$ by taking every second pixel in each row and column. The accuracy of sampling relative to $\sigma$ is no different than for the previous octave, while
 computation is greatly reduced.
-
-\newpage
 
 \textcolor{blue}{\textbf{Summary of the section :} }
 
@@ -261,7 +251,6 @@ As the 2D Gaussian function is separable, its convolution
 with the input image can be efficiently computed by applying
 two passes of the 1D Gaussian function in the horizontal
 and vertical directions:
-
 \begin{align}
      g(x)  =\frac{1}{\sqrt{2\pi}\sigma} e^\frac{x^2}{2\sigma^2}
 \end{align}
@@ -319,13 +308,12 @@ invariance to image rotation.\\ This approach contrasts with the orientation inv
 of Schmid and Mohr (1997), in which each image property is based on a rotationally
 invariant measure.\\ The disadvantage of that approach is that it limits the descriptors that
 can be used and discards image information by not requiring all measures to be based on a
-consistent rotation.\\
+consistent rotation.
 
 Following experimentation with a number of approaches to assigning a local orientation,
 the following approach was found to give the most stable results. The scale of the
 keypoint is used to select the Gaussian smoothed image, L, with the closest scale, as all
 computations must be performed in a scale invariant manner. For each image sample, $L_{x,y}$ ,the gradient magnitude, m, and orientation, $\theta$, is precomputed using pixel differences:
-
 \begin{align}
  m  =\sqrt{(L_{x+1,y} - L_{x-1,y})^2 + (L_{x,y+1} - L_{x,y-1})^2}
 \end{align}
@@ -418,7 +406,7 @@ we will not go through  the whole literature  of SURF, because its idea is very 
 In Sift method, we use Difference of Gaussian (DoG) to build the image pyramid, and in Surf, we simply use an integer approximation to the determinant of Hessian blob detector .
 
 Given a pixel, the Hessian of this pixel is something like:
-$\sigma^2\nabla^2G$ \\
+$\sigma^2\nabla^2G$ 
 
 \begin{gather}
 H(f(x,y)) =
@@ -471,8 +459,7 @@ In Sift, we use DOG to build image pyramids, the pyramid have several octaves, a
 SURF(right) uses larger and larger filters}
 \label{fig:surf2}
 \end{figure}
-
- Instead of iteratively reducing the image size (left), the use of integral images allows the upscaling of the filter at constant cost (right).\\
+Instead of iteratively reducing the image size (left), the use of integral images allows the upscaling of the filter at constant cost (right).
  
  \subsection{ABOUT FEATURE DESCRIPTOR}
  In Sift, we use an orientation histogram, and find the largest orientation value and also those values that are over 80\% of the largest, and use these orientations as the main orientation of the feature descriptor. In Surf, we use the sum of the Haar wavelet response around the point of interest.
@@ -523,16 +510,16 @@ of data points. The larger the number of sampled points the
 more details in the representation of the shape this results in
 more accurate matching. While a smaller number of sampled
 points reduce the accuracy of the matching results but on the
-other hand it will improve the computational efficiency. \\
+other hand it will improve the computational efficiency.
 
 After normalization we to apply Fourier transform to the
 shape signature. A shape signature is any 1-D function
 representing 2-D areas or boundaries. The shape signature we
 used is complex coordinates. A complex coordinates function
-is the complex form of the boundary coordinates \cite{20}. \\
+is the complex form of the boundary coordinates \cite{20}.
 \begin{gather}
     z_{i} = x_{i}+j y_{i} , i\in [1,N]
-\end{gather}\\
+\end{gather}
 For each shape we select N points with equal point
 sampling. In order to facilitate the use of Fast Fourier
 Transform (FFT), the number of sampled points is chosen to
@@ -615,24 +602,23 @@ manifold. So, a Euclidean distance measure cannot be used. Instead, the distance
 between two covariance matrices on this manifold is defined as:\\
 $$d(C,C') = \sqrt{\sum_{k=1}^{10} (\ln \lambda_{k}(C,C'))^{2}}$$ \\
 \texttt{where $\lambda_{k}(C,C')$ are generalized eigenvalues of C and C'\\
-C = convariance Matrix of new sample ,  C' = Reference from dictionary  } \\
+C = convariance Matrix of new sample ,  C' = Reference from dictionary  }
 
 The label of the minimum distance gesture is used for classification .
 
-\begin{table}[!h]
+\begin{table}[H]
 \centering
 \caption{Pros and Con of Covariance approach }
+
 \label{my-label}
-\begin{tabular}{lllll}
+\begin{tabular}{cccll}
 \cline{1-2}
-\multicolumn{1}{|l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Pros:\\  1. Complex Gesture .\\  2. High accuracy.\\  3. Scale invariant.\end{tabular}}} & \multicolumn{1}{l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Con :\\ 1. Not rotation Invariant . \\           \\        \\ \end{tabular}}} &  &  &  \\ \cline{1-2}
-                                                                                                                                                 &                                                                                                           &  &  &  \\
-                                                                                                                                                 &                                                                                                           &  &  &  \\
-                                                                                                                                                 &                                                                                                           &  &  & 
+\multicolumn{1}{|l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Pros:\\ 1.Complex Gesture .\\ 2.High accuracy.\\ 3.Scale invariant.\end{tabular}}} & \multicolumn{1}{l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Con :\\ 1.Not rotation Invariant\end{tabular}}} & \textbf{}                     &  &  \\ \cline{1-2}
+\textbf{}                                                                                                                                  & \textbf{}                                                                                              & \multicolumn{1}{l}{\textbf{}} &  &  \\
+\textbf{}                                                                                                                                  & \textbf{}                                                                                              & \textbf{}                     &  &  \\
+\textbf{}                                                                                                                                  & \textbf{}                                                                                              & \textbf{}                     &  & 
 \end{tabular}
 \end{table}
-
-\newpage
  
  \section{ Conclusion : }
  in this chapter we went through Two types of descriptors :
@@ -640,21 +626,19 @@ The label of the minimum distance gesture is used for classification .
 \textbf{the first} are  Local descriptors SIFT and SURF  descriptors that typically involves more intense computations and algorithms, often requiring floating point
 calculations, and may consume considerable memory.but generally they give a high  accuracy Additionally to their stable performance even against scale variation and Rotation variation too , the following table is summarizing the Differences of these two descriptors :
 
-\begin{table}[!h]
+\begin{table}[H]
 \centering
 
 \begin{tabular}{l|l|l|ll}
 \cline{2-3}
 \textbf{}                                                                                     & \textbf{SIFT}                                                                                                                                                     & \textbf{SURF}                                                                                                                             &  &  \\ \cline{1-3}
 \multicolumn{1}{|l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Keypoint\\ Detection\end{tabular}}}   & \textbf{\begin{tabular}[c]{@{}l@{}}Different scale image\\ convoluted with\\ Gaussian function\end{tabular}}                                                      & \textbf{\begin{tabular}[c]{@{}l@{}}Original Image is\\ convoluted with\\ Different scale box\\ filter\end{tabular}}                       &  &  \\ \cline{1-3}
-\multicolumn{1}{|l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Keypoint\\ Description\end{tabular}}} & \textbf{\begin{tabular}[c]{@{}l@{}}Gradient amplitude of\\ a square area is\\ calculated with\\ maximum gradient\\ strength as the main\\ direction\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}A Haar Wavelet response\\  is used to\\ calculate \\ each sector in\\ a \\ circular area\end{tabular}} &  &  \\ \cline{1-3}
+\multicolumn{1}{|l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Keypoint\\ Description\end{tabular}}} & \textbf{\begin{tabular}[c]{@{}l@{}}Gradient amplitude of\\ a square area is\\ calculated with maximum gradient\\ strength as the main\\ direction\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}A Haar Wavelet response\\  is used to calculate \\ each sector in a \\ circular area\end{tabular}} &  &  \\ \cline{1-3}
 \multicolumn{1}{|l|}{\textbf{Dimensions}}                                                     & 128                                                                                                                                                               & 64                                                                                                                                        &  &  \\ \cline{1-3}
 \end{tabular}
 \caption{COMPARISON OF SIFT AND SURF}
 \label{surfvssift}
 \end{table}
-
-
 
 \textbf{The second } are Basis Space descriptors   , A basis space is composed of a set of functions, the basis functions, which are
 composed together as a set, such as a series like the Fourier series and covariance Matrix  . 
