@@ -19,7 +19,7 @@ The First step we need to accomplish in order to start to work with the depth da
 
 We are going to base our choice on the object’s proximity to the Kinect. We can choose if a pixel is near based on its depth  The lesser the depth the more likely it’s the hand region .\\
 
-\textbf{ Absolute depth}: A pixel is near if its depth is lesser than a constant value, that means that the pixel is between \textbf{minDistance }and a predeﬁned value which is greater than \textbf{minDistance }and lesser than \textbf{maxDistance}.\\
+\textbf{ Absolute depth}: A pixel is near if its depth is lesser than a constant value, that means that the pixel is between \textbf{minDistance }and a predefined value which is greater than \textbf{minDistance }and lesser than \textbf{maxDistance}.\\
 
 \textbf{Relative depth }:First of all,  we calculate the minimum depth, and  base on that depth we select a maximum depth (by adding a constant value to the minimum depth). So, if the depth is between these two values, the pixel is near. This method allow us to have greater mobility, because it does not force us to stay in the same position the whole time. 
 \\
@@ -86,8 +86,8 @@ in the following figure \ref{fig:cam9} we will show the hand position both in co
 
 \subsection{Hand isolation using object connectivity }
 
-After depth thresholding we notice that there are regions that do not belong to the hand , such as what appears to be one of my  arms or some furniture or my body when my hand is closer to my body like shown in the figure  \ref{fig:cam10} . These objects just happen to be on the same depth layer as my arm and hand this means that the Distance between these objects and the Kinect lies  between \textbf{[minDistance ,minDistance +2cm]} .
-\newline
+After depth thresholding we notice that there are regions that do not belong to the hand , such as what appears to be one of my  arms or some furniture or my body when my hand is closer to my body like shown in the figure  \ref{fig:cam10} . These objects just happen to be on the same depth layer as my arm and hand this means that the Distance between these objects and the Kinect lies  between \textbf{ $$[minDistance ,minDistance +2cm] \pm {Error\ committed\ by\ Kinect\ } $$ } .
+
 
 \begin{figure}[H]
 \centering
@@ -95,7 +95,6 @@ After depth thresholding we notice that there are regions that do not belong to 
 \caption{the depth of the body is in  the range [minDistance ,minDistance +2cm]}
 \label{fig:cam10}
 \end{figure}
-
 
 the approach used in this project  is to realize that most of the times, hands are not connected to any other object after the thresholding . We already know that the center region belongs to the hand from skeleton tracking , so we can simply apply`` floodfill ()`` offered by OpenCV to find all the connected image regions.\newline
 
@@ -143,7 +142,7 @@ the same process done with the other hand , Making a \textbf{OR } operation to t
 
  \begin{figure}[H]
 \centering
-\includegraphics[width=0.4\textwidth]{img/twohands.jpg}
+\includegraphics[width=0.5\textwidth]{img/twohands.jpg}
 \caption{result after applying connectivity for both hands  }
 \label{fig:twohd}
 \end{figure}
@@ -173,20 +172,6 @@ in the next section we will build the recognition System  .
 
 \section{ gesture recognition using Surf  Features  and SVM  classifier }
 
-\subsection{ Classification Using Bag-Of-Words Model}
-
-Computer Vision has achieved some success in the case of specific problems, like detecting faces in an image. But it has still not satisfactorily solved the problem for the general case where we have random objects in different positions and orientations. \textbf{Bag-of-words (BoW) } model is one of the most popular approaches in this field, and many modern approaches are based on top of this.
-The idea is very similar to a Dictionary of keypoints or local interest points of an Image or a Datasets of Images.We represent an object as a bag of \textbf{visual words} Fig \ref{fig:coodbook}.\\
-\begin{wrapfigure}{l}{0.25\textwidth}
-\includegraphics[width=0.25\textwidth]{img/codebook.jpg}
-\caption{Example of Visual words in a codebook}
-\label{fig:coodbook}
-\end{wrapfigure}
-These visual words are basically important points in the images. These points are \textbf{features}, and they are discriminative. What this means is that a big patch of monotonic region is not considered to be a feature because it doesn’t give us much information. This is in contrast with a sharp corner or a unique color combination, where we get a lot of information about the image. We can use the BoW model for image classification by constructing a large vocabulary of many visual words and represent each image as a histogram of the frequency words that are in the image. To actually use BoW for image classification, we need to extract these features, generate a codebook, and then generate a histogram. in order to get these features we are going to Use Local Features Descriptors like ( SIFT , SURF ,ORB )\\
-After this step, each image is a collection of vectors of the same dimension, where the order of different vectors is\textbf{ not important} , but the sets vary in cardinality and lack meaningful ordering. This creates difficulties for learning methods (e.g., classifiers) that require feature vectors of fixed dimension as input.\\ Use of the \textbf{vector quantization (VQ)} technique clusters the keypoint descriptors in their feature space into a large number of clusters using \textbf{the K-means } clustering algorithm and encodes each keypoint by the index of the cluster to which it belongs.\\ Each cluster as a visual word that represents a specific local pattern shared by the keypoints in that cluster is saved. Thus, the clustering process generates a visual word vocabulary describing different local patterns in images. The number of clusters determines the size of the Codebook , Hence, each patch in an image is mapped to a certain codeword through the clustering process.
-
-
-
 \subsection{Feature Descriptor selection :}
 Visual gesture
 recognition becomes a research hotspot in machine learning
@@ -198,40 +183,40 @@ invariant moments are often characterized as an apparent
 features of gesture image, but they have to consume a lot of
 memory and confront slow calculation and other shortcomings.\\ HOG(histograms of oriented gradients) feature has been introduced into gesture
 recognition, but the HOG features is not ideal for gesture
-recognition for it is computed in dense grids at some single
-scale without orientation alignment.\\ In real world a lot of data are high dimensional that
-contains many attributes or characteristics. For the convenience
-of representation, usually a data sample is represented as a
-vector, each element of the vector correspond to the characteristic
-representation.\\ For example, grayscale image data takes
-gray value pixel as the feature, according to the order of the
-columns, stretchs it into a vector, and then be represented by
-a vector image. However, some dimension vectors of image
-is very large, i.e. 150 pixels $\times $150 pixel image corresponds
-to a high-dimensional space of dimension 22500 this is for One hand dataset made by US \ref{ data1} , As for dataset of Two hands 271 pixels $\times $211 which is   a  space of dimension  of 57181.\\ So Bag of-words
-method, which is to select a group of words as a
-dictionary, then count the frequency of dictionary word appears
-in the image, so that dictionary in reduced dimension space can
-indicate the corresponding image.\\ The contribution of this paper is that we propose SURF
+recognition for it is computation in dense grids at some single
+scale without orientation alignment.\\ The contribution of this project is that we propose SURF
 feature descriptors of hand gesture images and then bag of
-visual words are to map these descriptors to a dimension vector and support vector machine(SVM) classifer is trained to
-recognize hand gesture.
+visual words are to map these descriptors to a dimension vector and a  support vector machine(SVM) classifier is then  trained to
+recognize hand gestures.
 \begin{enumerate}
 \item We show that this model is not only
 effective for common hand gestures dataset, but also achieves
-good gesture recognition rate for challenging RGB-D depth
+good  recognition rate for depth
 data collected by Kinect sensor.
-\item By SURF descriptors, the
-dimension of each gesture image is high and can not be directly
-used as the input of machine learning algorithms, so Bag Of
-Visual Words are used to reduce the dimension. 
+\item Hand gestures training images can be represented by sets of
+keypoint descriptors generated by SIFT or SURF , but the numbers of keypoints from the
+images are \textbf{different and lack meaningful ordering }. This
+creates difficulties for machine learning methods . To address
+this problem, we use the bag-of-words ( also called bag of features )  approach .
 \item We found
 that SURF feature descriptors are more appropriately for visual
 hand gesture recognition than SIFT feature descriptors.
-SIFT is  slow which  gave lag during feature extraction. SURF performs well on blurry images and is typically 3 times faster than SIFT.\\ Hence we found SURF descriptors to be apt for our application to meet the demand \textbf{of Real time application} since Sift descriptor can never be used in real time applications however Not with normal machines .
+SIFT is  slow which  gave lag during feature extraction. on the other hand SURF performs well on blurry images and is typically 3 times faster than SIFT.\\ Hence we found SURF descriptors to be apt for our application to meet the requirement  \textbf{of a  Real time application} since Sift descriptor can not be used in real time applications however Not with normal machines .
 \end{enumerate}
 
-\subsection{Clustering Algorithm Bag of words :}
+
+\subsection{  Bag Of visual Words Model}
+
+ \textbf{Bag-of-words (BoW) } model is one of the most popular approaches in this computer vision, The idea is very similar to a Dictionary of keypoints or local interest points of an Image or a Datasets of Images.We represent an object as a bag of visual words Fig \ref{fig:coodbook}.
+\begin{wrapfigure}{l}{0.25\textwidth}
+\includegraphics[width=0.25\textwidth]{img/codebook.jpg}
+\caption{Example of Visual words in a codebook}
+\label{fig:coodbook}
+\end{wrapfigure}
+These visual words are basically important points in the images. These points are \textbf{features}, and they are discriminative. What this means is that a big patch of monotonic region is not considered to be a feature because it doesn’t give us much information. This is in contrast with a sharp corner or a unique color combination, where we get a lot of information about the image. We can use the BoW model for image classification by constructing a large vocabulary of many visual words and represent each image as a histogram of the frequency words that are in the image. To actually use BoW for image classification, we need to extract these features, generate a codebook, and then generate a histogram. in order to get these features we are going to Use Local Features Descriptors like ( SIFT , SURF ,ORB )\\
+After this step, each image is a collection of vectors of the same dimension, where the order of different vectors is\textbf{ not important} , but the sets vary in cardinality and lack meaningful ordering. This creates difficulties for learning methods (e.g., classifiers) that require feature vectors of fixed dimension as input.\\ Use of the \textbf{vector quantization (VQ)} technique clusters the keypoint descriptors in their feature space into a large number of clusters using \textbf{the K-means } clustering algorithm and encodes each keypoint by the index of the cluster to which it belongs.\\ Each cluster as a visual word that represents a specific local pattern shared by the keypoints in that cluster is saved. Thus, the clustering process generates a visual word vocabulary describing different local patterns in images. The number of clusters determines the size of the Codebook , Hence, each patch in an image is mapped to a certain codeword through the clustering process.
+
+\subsection{keypoint descriptor Clustering }
 A texture image with a Bag of Words
 model is represented by the image feature,i.e.,a histogram of
 the number of texels from a texture image, to generate ”visual
@@ -245,35 +230,42 @@ classiﬁcation approach.\\
 \caption{ bag of visual words image classification approach   }
 \label{fig:bag}
 \end{figure}
-(1) \textbf{Feature extraction and description.} It is to extract a representative local features from an image as a description of the image. Traditional methods using SIFT descriptors to
-describe the image. This paper uses SURF  descriptor
-to extract all the training images feature descriptor. \\(2)\textbf{ Dictionary}
+(1) \textbf{Feature extraction and description.} It is to extract a representative local features from an image as a description   \\(2)\textbf{ Dictionary}
 generation. How to generate the visual dictionary in the
 entire feature space. After K-means clustering SURF 
-feature will be clustered into K categories, the center of each class that is a visual words and give them a characteristic vector of the cluster with the index value. All visual words constitute
-a visual dictionary. \\(3)\textbf{ Characteristics of quantization.} During
+feature will be clustered into K categories,\\(3)\textbf{ Characteristics of quantization.} During
 quantization characteristic, for a given local features of each
 image, using the nearest neighbor method to find the distance
 to the nearest cluster center feature vectors in the visual
 dictionary, the resulting image should be the corresponding
-visual words to represent the image of the gesture.\\
+visual words to represent the image of the gesture.
 
 
 \subsection{classification algorithm }
- Support vector machine is one of the mostly
-commonly used classiﬁer. The core idea is to ﬁnd the optimal
-hyperplane in the feature space.\\
+
 Training Processes are as follows:\\ (1) extracting SURF
-and SIFT features from training samples.\\ (2) using K-means
-clustering mode to regard cluster center vectors as visual
-words.\\ (3) calculating each ﬁgure as training visual saliency
-map, and each image in the SIFT features to quantify, and
+features from training samples with different
+scales and  orientations .
+\\ (2) using K-means to cluster Surf features into K centroids ,  Once this is done, each feature vector (keypoint) is
+assigned to one and only one cluster center that is in the
+nearest distance with respect to the Euclidean metric in 64
+dimensional feature vectors. The keypoints that are assigned to
+the same cluster center will be in the same subgroup so that
+after clustering we have k disjoint subgroups of keypoints.
+Therefore k-means clustering decreases dimensionality for
+every training image with n keypoints (n $\times$ 64) to 1 $\times$ k,
+where k is number of clusters.\\ (3) calculating each figure as training visual saliency
+map, and each image in the Surf features to quantify, and
 then based on visual saliency visual computing word weighted
 histogram of each graph, and then use the histogram training
-image.\\ (4) using SVM to train samples. Each training samples
-include positive and negative samples. Positive samples containing
-words of visual word histogram, negative samples do
-not contain such objects visual word histogram.\\ Classiﬁcation
+image.\\ (4)  SVM uses a non-linear mapping to transform original training dataset into higher dimension and searches for a linear optimal
+separating hyperplane. since our Gesture can have the same shape and certainly often have the same features for two different gestures  this will make Linear separation Hard and can results in false results the kernel method can be used in our case  to transform data  in to higher dimension space in which they are separable. This process will allow classification of multiple classes (16 class ) 
+
+\\validation :
+we randomize our data 10 times ...
+
+
+\\ Classiﬁcation
 process:\\ (1) The test image used to extract dense sampling of
 images features. \\(2) Calculation of the test image visual words
 and quantify the test image, and then calculate the saliency
@@ -282,7 +274,7 @@ using the trained SVM classiﬁer to obtain a classiﬁcation
 result.
 the following Figure \ref{fig:algo1}  summarize the whole  process :
 
-\begin{figure}[H]
+\begin{figure}[!h]
 \centering
 \includegraphics[width=17cm, height=19.5cm ]{img/myalgo.pdf}
 \caption{Flowchart for the structure of the algorithm , in block (A) the Extracted Keypoints  are Clustered to i Vocabulary and generate a codewords dictionary  ,then compute a histogram using visual words ( vocabulary ) for all the training samples these histograms are then fed to an SVM for classification, in Block (B) test images are converted to histogram representation by couting how many keypoints appeared in cluster i ,  and then classify the results using the trained SVM }
@@ -295,7 +287,7 @@ for Surf Descriptor we have 200 image for each Gesture  which gave approximately
 
 \subsection{EXPERIMENTAL RESULTS }
 in this section we are interested in maximizing the performances of SVM and KNN , using K-cross Validation to make model selection , using K = 10 for cross Validation which has ensure us a great    ,  . \\
-we have chose Confusion to be our main Evaluation Metric since The method can be used for binary classification or Multi class classifiction like Our Case ( 17 class ) 
+we have chose Confusion to be our main Evaluation Metric since The method can be used for binary classification or Multi class classifiction like Our Case ( 16 class ) 
 
 \subsubsection{ } 
 
