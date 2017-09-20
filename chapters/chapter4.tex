@@ -238,7 +238,18 @@ scales and  orientations .
 will be represented by one component in the generated
 bag-of-feature vector with value equal to the index of the
 centroid in the cluster model with nearest Euclidean
-distance this basically means getting frequencies of Visual words in the Current image , to have better visualization  about this step see the Figure \ref{Histogram} \\ (3)  SVM uses a non-linear mapping to transform original training dataset into higher dimension and searches for a linear optimal
+distance this basically means getting frequencies of Visual words in the Current image , to have better visualization  about this step see the Figure \ref{fig:histo}
+
+\begin{figure}[H]
+\centering
+\includegraphics[]{}
+\caption{Mapping keypoint into Bag of Features space }
+\label{fig:histo}
+\end{figure}
+
+
+
+\\ (3)  SVM uses a non-linear mapping to transform original training dataset into higher dimension and searches for a linear optimal
 separating hyperplane. since our Gesture can have the same shape and certainly often have the same features for two different gestures  this will make Linear separation Hard and can results in false results the kernel method can be used in our case  to transform data  in to higher dimension space in which they are separable. This process will allow classification of multiple classes (16 class ) 
 
 \\validation :
@@ -248,6 +259,7 @@ we used K-cross fold method to tune the parameters of our SVM  , Using both line
 process:\\ (1) Extract Keypoint using surf to the test images . \\(2) representing test images by Histogram \\ (3)
 using the trained SVM classiﬁer to obtain a classiﬁcation
 result.
+
 the following Figure \ref{fig:algo1}  summarize the whole  process :
 
 \begin{figure}[H]
