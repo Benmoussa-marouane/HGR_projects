@@ -1,5 +1,11 @@
 
-\chapter{Hand gesture Recognition} \label{hgr}
+\chapter{Hand gesture Recognition System} \label{hgr}
+
+\section{introduction}
+
+This section is orginazed as follows , First is Preprocessing in this step we will build a system that can detect and track the Hand based on minimum depth detected by Kinect sensor ,then filtering any minimum depth that is not the hand region , after the preprocessing  a Surf descriptor is applied to get description of Gestures features  and fed them into an SVM kernel via bag of features (BOW) Approach to reduce dimensionality of Surf Features space , Another Approach was used which is Fouriere shape Descriptor where we made a dictionary for feature extraction and then Classify gestures using Nearest neighbor classifier .
+
+
 
 \section{Hand tracking  And Detection}
 
@@ -72,6 +78,8 @@ in the following figure \ref{fig:cam9} we will show the hand position both in co
 \label{fig:cam9}}
 
 \end{figure}
+
+\newpage
 
 By Using a relative depth ( [minimum depth + tolerance] ) we eliminate all
 sorts of confusion related to background. This also filters the cluttered background or overlapped images (i.e. hand overlapped with face) and illumination changes ,  which justifies the use of depth sensor over RGB camera . In addition  the images of depth does not show enough contrast variations  in the hand region  so that we can get more discriminative keypoints to differentiate close gestures. 
@@ -247,7 +255,7 @@ distance this basically means getting frequencies of Visual words in the Current
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=18.5cm, height=9cm ]{img/histogramprocess.pdf}
+\includegraphics[width=19cm, height=9cm ]{img/histogramprocess.pdf}
 \caption{Mapping keypoint into Bag-of-Features space }
 \label{fig:histo}
 \end{figure}
@@ -257,10 +265,7 @@ separating hyperplane. since our Gesture can have the same shape and certainly o
 \end{enumerate}
 
 \textbf{validation :}
-
 we used K-cross fold method to tune the parameters of our SVM  , Using both linear and RBF kernels , Also Number K of clusters plays a role in tunning our model , the result will be shown and discussed in the next section \ref{resultssvm} 
-
-
 
 \textbf{Classiﬁcation process: }
 \begin{enumerate}
@@ -271,12 +276,11 @@ result.
     
 \end{enumerate}
 
-
 the following Figure \ref{fig:algo1}  summarize the whole  process :
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=17cm, height=19.5cm ]{img/myalgo.pdf}
+\includegraphics[width=17cm, height=18cm ]{img/myalgo.pdf}
 \caption{Flowchart for the structure of the algorithm , in block (A) the Extracted Keypoints  are Clustered to i Vocabulary and generate a codewords dictionary  ,then compute a histogram using visual words ( vocabulary ) for all the training samples these histograms are then fed to an SVM for classification, in Block (B) test images are converted to histogram representation by couting how many keypoints appeared in cluster i ,  and then classify the results using the trained SVM }
 \label{fig:algo1}
 \end{figure}
