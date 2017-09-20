@@ -255,13 +255,22 @@ distance this basically means getting frequencies of Visual words in the Current
 \item SVM uses a non-linear mapping to transform original training dataset into higher dimension and searches for a linear optimal
 separating hyperplane. since our Gesture can have the same shape and certainly often have the same features for two different gestures  this will make Linear separation Hard and can results in false results the kernel method can be used in our case  to transform data  in to higher dimension space in which they are separable. This process will allow classification of multiple classes (16 class ) 
 \end{enumerate}
-\\validation :
+
+\textbf{validation :}
+
 we used K-cross fold method to tune the parameters of our SVM  , Using both linear and RBF kernels , Also Number K of clusters plays a role in tunning our model , the result will be shown and discussed in the next section \ref{resultssvm} 
 
- Classiﬁcation
-process:\\ (1) Extract Keypoint using surf to the test images . \\(2) representing test images by Histogram \\ (3)
-using the trained SVM classiﬁer to obtain a classiﬁcation
+
+
+\textbf{Classiﬁcation process: }
+\begin{enumerate}
+    \item Extract Keypoint using surf to the test images .
+    \item  representing test images by Histogram
+    \item using the trained SVM classiﬁer to obtain a classiﬁcation
 result.
+    
+\end{enumerate}
+
 
 the following Figure \ref{fig:algo1}  summarize the whole  process :
 
@@ -277,7 +286,7 @@ for Surf Descriptor we have 200 image for each Gesture  which gave approximately
 
 \subsection{EXPERIMENTAL RESULTS }\label{resultssvm}
 in this section we are interested in maximizing the performances of SVM and KNN , using K-cross Validation to make model selection , with  K = 10 for cross Validation which has ensure us a   ,  . \\
-we have chose Confusion to be our main Evaluation Metric since The method can be used for binary classification or Multi class classifiction like Our Case ( 16 class ) 
+we have chose Confusion to be our main Evaluation Metric since The method can be used for binary classification or Multi class classification like Our Case ( 16 class ) 
 
 \subsubsection{ } 
 
