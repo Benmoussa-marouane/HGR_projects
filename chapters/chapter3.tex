@@ -69,8 +69,7 @@ The SVM technique is a classifier that finds a hyperplane or a function $g(x) = 
 
 
 \subsection{Soft-Margin SVM}
-
-When the data are not completely separable, as with the points marked by a X in Figure below  , slack variables Xi  are introduced to the SVM objective function to allow error in the misclassification. SVM, in this case, is not searching for the hard margin, which will classify all data flawlessly. Instead, SVM is now a soft margin classifier; that is, SVM is classifying most of the data correctly, while allowing the model to misclassify a few points in the vicinity of the separating boundary
+SVM is classifying most of the data correctly, while allowing the model to misclassify a few points in the vicinity of the separating boundary
 
 \begin{figure}[H]
 \centering
@@ -174,15 +173,17 @@ $ //where\  X_{i}\ is\ of\ dimension\ n\ and\  \omega_{i}\ is\ the\ class\ label
  \caption{Algorithm for NN}
 \end{algorithm}
 
-\vspace{5mm}
-\textbf{Example of the algorithm} :\newline 
+
+
+\textbf{Example of the algorithm} :
+
+
 $ X1 = (0.8, 0.8, 1), X2 = (1.0, 1.0, 1), X3 = (1.2, 0.8, 1)$\\
 $X4 = (0.8, 1.2, 1), X5 = (1.2, 1.2, 1), X6 = (4.0, 3.0, 2)$\\
 $X7 = (3.8, 2.8, 2), X8 = (4.2, 2.8, 2), X9 = (3.8, 3.2, 2)$\\
 $X10 = (4.2, 3.2, 2), X11 = (4.4, 2.8, 2), X12 = (4.4, 3.2, 2)$\\
 $X13 = (3.2, 0.4, 3), X14 = (3.2, 0.7, 3), X15 = (3.8, 0.5, 3)$\\
 $X16 = (3.5, 1.0, 3), X17 = (4.0, 1.0, 3), X18 = (4.0, 0.7, 3)$
-
 
 \begin{figure}[H]
 \centering
@@ -216,25 +217,7 @@ In pattern recognition, the k-nearest neighbors algorithm (k-NN) is a non-parame
 
 k-NN is a type of instance based learning, or lazy learning, where the function is only approximated locally and all computation is deferred until classification. The k-NN algorithm is among the simplest of all machine learning algorithms.\\ Both for classification and regression, it can be useful to assign weight to the contributions of the neighbors, so that the nearer neighbors contribute more to the average than the more distant ones. For example, a common weighting scheme consists in giving each neighbor a weight of 1/d, where d is the distance to the neighbor.\\ The neighbors are taken from a set of objects for which the class (for k-NN classification) or the object property value (for k-NN regression) is known. This can be thought of as the training set for the algorithm, though no explicit training step is required.
 
-\subsubsection{Modified k-Nearest Neighbour (MkNN) Algorithm}
-This algorithm is similar to the kNN algorithm, in as much as it takes the k nearest
-neighbours into consideration. The only difference is that these k nearest neighbours
-are weighted according to their distance from the test point. It is also called
-the distance-weighted k-nearest neighbour algorithm. Each of the neighbours is
-associated with the weight w which is defined as
-$$ \left\{\begin{matrix}
-\frac{ \mathlarger{d_{k} - d_{j}}} { \mathlarger{{d_{k} - d_{1}} }} \   \ if \ d_{k} \neq d_{1} \\ 
-\mathlarger{1} \  \   \     \ if \ d_{k}  =  d_{1}
-\end{matrix}\right.   $$
 
-where j = 1, .., k. The value of $w_{j}$ varies from a maximum of 1 for the nearest
-neighbour down to a minimum of zero for the most distant. Having computed the
-weights wj, the MkNN algorithm assigns the test pattern P to that class for which the
-weights of the representatives among the k nearest neighbours sums to the greatest
-value.\\
-Instead of using the simple majority rule, it can be observed that MkNN employs
-a weighted majority rule. This would mean that outlier patterns have lesser effect on
-classification
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Unsupervised learning}
@@ -470,25 +453,6 @@ Some other values:\\
 
 \end{itemize}
 
-\subsection{Metric selection}
-When it comes to skewed classes (or high bias data), metric selection is more nuanced.
-
-For instance, say we have a dataset where only 0.5\% of the data is in category 1 and the rest is in category 0. we run our model and find that it categorized 99.5\% of the data correctly! But because of the skew in that data, our model could just be: classify each example in category 0, and it would achieve that accuracy.
-
-Note that the convention is to set the rare class to 1 and the other class to 0. That is, we try to predict the rare class.
-
-Instead, we may want to use \textbf{precision/recall} as our evaluation metric.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.6\textwidth]{img/TP.PNG}
-\caption{  confusion matrix.}
-\label{fig:TP}
-\end{figure}
-
-Where 1T/0T indicates the actual class and 1P/0P indicates the predicted class.\\
-\textbf{Precision} is the number of true positives over the total number predicted as positive. That is, what fraction of the examples labeled as positive actually are positive  $\frac{\text{true positives}}{\text{true positives} + \text{false positives}}$ .\\
-\textbf{Recall} is the number of true positives over the number of actual positives. That is, what fraction of the positive examples in the data were identified  $\frac{\text{true positives}}{\text{true positives} + \text{false negatives}}$
 
 
 \section{Conclusion:}

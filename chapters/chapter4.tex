@@ -62,7 +62,7 @@ FootRight = 19   & SpineShoulder = 20     \\
 
  \end{table}
 
-in the following figure \ref{fig:cam9} we will show the hand position both in color and depth space :
+in the following figure \ref{fig:cam9} we will show the hand position both in color and depth space using Skeletal tracking  :
 
 \begin{figure}[H]
 \centering
@@ -73,7 +73,8 @@ in the following figure \ref{fig:cam9} we will show the hand position both in co
 
 \end{figure}
 
-
+By Using a relative depth ( [minimum depth + tolerance] ) we eliminate all
+sorts of confusion related to background. This also filters the cluttered background or overlapped images (i.e. hand overlapped with face) and illumination changes ,  which justifies the use of depth sensor over RGB camera . In addition  the images of depth does not show enough contrast variations  in the hand region  so that we can get more discriminative keypoints to differentiate close gestures. 
 
 
 \subsection{Hand isolation using object connectivity }
@@ -241,14 +242,10 @@ distance this basically means getting frequencies of Visual words in the Current
 separating hyperplane. since our Gesture can have the same shape and certainly often have the same features for two different gestures  this will make Linear separation Hard and can results in false results the kernel method can be used in our case  to transform data  in to higher dimension space in which they are separable. This process will allow classification of multiple classes (16 class ) 
 
 \\validation :
-we randomize our data 10 times ...
+we used K-cross fold method to tune the parameters of our SVM  , Using both linear and RBF kernels , Also Number K of clusters plays a role in tunning our model , the result will be shown and discussed in the next section \ref{resultssvm} 
 
-
-\\ Classiﬁcation
-process:\\ (1) The test image used to extract dense sampling of
-images features. \\(2) Calculation of the test image visual words
-and quantify the test image, and then calculate the saliency
-calculation test image visual word weighted histogram.\\ (3)
+ Classiﬁcation
+process:\\ (1) Extract Keypoint using surf to the test images . \\(2) representing test images by Histogram \\ (3)
 using the trained SVM classiﬁer to obtain a classiﬁcation
 result.
 the following Figure \ref{fig:algo1}  summarize the whole  process :
@@ -260,11 +257,10 @@ the following Figure \ref{fig:algo1}  summarize the whole  process :
 \label{fig:algo1}
 \end{figure}
 
-\newpage
 
-for Surf Descriptor we have 200 image for each Gesture  which gave approximately 400444 Features to clusters 
+for Surf Descriptor we have 200 image for each Gesture  which gave approximately 400444 !!!!!!!!! Features to clusters 
 
-\subsection{EXPERIMENTAL RESULTS }
+\subsection{EXPERIMENTAL RESULTS }\label{resultssvm}
 in this section we are interested in maximizing the performances of SVM and KNN , using K-cross Validation to make model selection , with  K = 10 for cross Validation which has ensure us a   ,  . \\
 we have chose Confusion to be our main Evaluation Metric since The method can be used for binary classification or Multi class classifiction like Our Case ( 16 class ) 
 
